@@ -37,8 +37,8 @@ answer:
   success: ':ok_hand: Готово!'
 
 button:
-  wakeup: 'Создать'
-  add: ':heavy_plus_sign: Запланировать действие'
+  wakeup: ':heavy_plus_sign: Создать'
+  summary: ':info: Информация'
   settings: ':wrench: Настройки'
   back: ':arrow_left: Назад'
   locale: ':globe_with_meridians: Язык'

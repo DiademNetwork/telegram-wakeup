@@ -11,7 +11,7 @@ module.exports = {
     },
     baseApiUrl: 'https://api.telegram.org'
   },
-  default: {
+  defaults: {
     locale: 'ru',
     timezone: 'Europe/Moscow'
   },
