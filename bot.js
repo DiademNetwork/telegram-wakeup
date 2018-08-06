@@ -5,9 +5,11 @@ const config = require('./config')
 const texts = require('./texts')
 
 const { key, webHook, polling, baseApiUrl } = config.bot
-const options = { key, polling, baseApiUrl }
-if (process.env !== 'http://localhost:9000') {
-  options.webHook = webHook
+let options = null
+if (process.env === 'http://localhost:9000') {
+  options = { polling, key, baseApiUrl }
+} else {
+  options = { webHook, key, baseApiUrl }
 }
 
 const bot = module.exports = bb(options)
