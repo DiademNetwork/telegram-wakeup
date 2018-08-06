@@ -5,7 +5,12 @@ const config = require('./config')
 const texts = require('./texts')
 
 const { key, webHook, polling, baseApiUrl } = config.bot
-const bot = module.exports = bb({ key, polling, baseApiUrl })
+const options = { key, polling, baseApiUrl }
+if (process.env !== 'http://localhost:9000') {
+  options.webHook = webHook
+}
+
+const bot = module.exports = bb(options)
   .texts(texts.ru, { locale: 'ru' })
   .texts(texts.en, { locale: 'en' })
   .texts(texts.default)
