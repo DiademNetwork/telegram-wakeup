@@ -6,7 +6,7 @@ const texts = require('./texts')
 
 const { key, webHook, polling, baseApiUrl } = config.bot
 let options = null
-if (process.env === 'http://localhost:9000') {
+if (process.env.HEROKU_URL === 'http://localhost:9000') {
   options = { polling, key, baseApiUrl }
 } else {
   options = { webHook, key, baseApiUrl }
