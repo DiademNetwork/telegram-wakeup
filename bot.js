@@ -1,4 +1,5 @@
 const r2 = require("r2")
+const querystring = require("querystring")
 const bb = require("bot-brother")
 
 const config = require('./config')
@@ -77,7 +78,8 @@ const detectTimezone = async (query) => {
     longitude = location.lng
   }
 
-  const timezone = await r2(`https://maps.googleapis.com/maps/api/timezone/json?location=${latitude},${longitude}`)
+  const options = { location: `${latitude}, ${longitude}`, timestamp: Math.round((new Date()).getTime() / 1000) }
+  const timezone = await r2(`https://maps.googleapis.com/maps/api/timezone/json?${options}`)
 
   return timezone
 }
