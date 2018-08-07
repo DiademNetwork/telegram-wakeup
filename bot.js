@@ -52,7 +52,8 @@ const bot = module.exports = bb(options)
 
     ctx.settings = ctx.settings || {}
     ctx.setLocale(ctx.session.locale || config.defaults.locale)
-    ctx.timezone = ctx.session.timezone || config.defaults.timezone
+
+    ctx.timezone = typeof ctx.session.timezone === 'object' ? ctx.session.timezone.timeZoneId || config.defaults.timezone
 
     if (!/^settings_/.test(ctx.command.name)) {
       if (!ctx.session.locale) {
@@ -78,8 +79,8 @@ const detectTimezone = async (query) => {
     longitude = location.lng
   }
 
-  const options = { location: `${latitude}, ${longitude}`, timestamp: Math.round((new Date()).getTime() / 1000) }
-  const timezone = await r2(`https://maps.googleapis.com/maps/api/timezone/json?${options}`)
+  const options = querystring.stringify({ location: `${latitude}, ${longitude}`, timestamp: Math.round((new Date()).getTime() / 1000) })
+  const timezone = await r2(`https://maps.googleapis.com/maps/api/timezone/json?${options}`).json
 
   return timezone
 }
@@ -157,7 +158,7 @@ bot.command('time', { compliantKeyboard: true })
     ctx.session.wakeupMotivation = wakeupMotivation
     ctx.session.alarmTime = ctx.answer
 
-    scheduleCall(JSON.stringify(ctx.meta.user), wakeupMotivation, ctx.session.wakeupMotivation, JSON.stringify(ctx.timezone))
+    scheduleCall(JSON.stringify(ctx.meta.user), wakeupMotivation, ctx.session.wakeupMotivation, ctx.timezone)
 
     return ctx.go('summary')
   })
