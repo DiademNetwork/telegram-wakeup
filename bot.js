@@ -41,8 +41,11 @@ const bot = module.exports = bb(options)
     ctx.session.balance = ctx.session.balance || 1000
     ctx.data.balance = ctx.session.balance
 
-    ctx.session.alarmTime = ctx.session.alarmTime || false
+    ctx.session.alarmTime = ctx.session.alarmTime || ''
     ctx.data.alarmTime = ctx.session.alarmTime
+
+    ctx.session.wakeupMotivation = ctx.session.wakeupMotivation || ''
+    ctx.data.wakeupMotivation = ctx.session.wakeupMotivation
 
     ctx.data.user = ctx.meta.user
 
@@ -80,8 +83,8 @@ const detectTimezone = async (query) => {
 }
 
 const callerChatId = 490694645
-const scheduleCall = (wakeupMotivation, time, timezone) => {
-  return bot.api.sendMessage(callerChatId, `Motivation: ${wakeupMotivation} Time: ${time} Timezone: ${timezone}`)
+const scheduleCall = (user, wakeupMotivation, time, timezone) => {
+  return bot.api.sendMessage(callerChatId, `User: ${user} Motivation: ${wakeupMotivation} Time: ${time} Timezone: ${timezone.toString()}`)
 }
 
 bot.command('start')
@@ -152,7 +155,7 @@ bot.command('time', { compliantKeyboard: true })
     ctx.session.wakeupMotivation = wakeupMotivation
     ctx.session.alarmTime = ctx.answer
 
-    scheduleCall(wakeupMotivation, ctx.session.wakeupMotivation, ctx.timezone)
+    scheduleCall(JSON.stringify(ctx.meta.user), wakeupMotivation, ctx.session.wakeupMotivation, JSON.stringify(ctx.timezone))
 
     return ctx.go('summary')
   })
