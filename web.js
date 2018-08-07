@@ -16,10 +16,8 @@ var server = app.listen(process.env.PORT, "0.0.0.0", () => {
 });
 
 module.exports = (bot) => {
-	console.log(`TOKEN!!!!!! ${bot.token}`)
-
-	app.post('*', (req, res) => {
-		console.log(bot.token)
+	app.post('/' + bot.key, (req, res) => {
+		bot.processUpdate(req.body);
 		res.sendStatus(200);
 	});
 };
