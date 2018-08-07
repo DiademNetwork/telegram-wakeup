@@ -162,7 +162,8 @@ bot.command('time', { compliantKeyboard: true })
     ctx.session.wakeupMotivation = wakeupMotivation
     ctx.session.alarmTime = ctx.answer
 
-    scheduleCall(JSON.stringify(ctx.meta.user), wakeupMotivation, ctx.session.wakeupMotivation, ctx.timezone)
+    const user = ctx.meta.user.username || ctx.meta.user.id
+    scheduleCall(user, wakeupMotivation, ctx.session.wakeupMotivation, ctx.timezone)
 
     return ctx.go('summary')
   })
