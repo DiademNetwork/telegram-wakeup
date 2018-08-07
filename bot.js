@@ -53,7 +53,11 @@ const bot = module.exports = bb(options)
     ctx.settings = ctx.settings || {}
     ctx.setLocale(ctx.session.locale || config.defaults.locale)
 
-    ctx.timezone = (typeof ctx.session.timezone === 'object') ? ctx.session.timezone.timeZoneId || config.defaults.timezone
+    if (ctx.session.timezone && ctx.session.timezone.timeZoneId) {
+      ctx.timezone = ctx.session.timezone.timeZoneId
+    } else {
+      ctx.timezone = config.defaults.timezone
+    }
 
     if (!/^settings_/.test(ctx.command.name)) {
       if (!ctx.session.locale) {
