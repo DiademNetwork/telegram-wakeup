@@ -12,6 +12,7 @@ if (process.env.HEROKU_URL === 'http://localhost:9000') {
   options = { webHook, key, baseApiUrl }
 }
 
+console.log(options)
 const bot = module.exports = bb(options)
   .texts(texts.ru, { locale: 'ru' })
   .texts(texts.en, { locale: 'en' })

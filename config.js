@@ -1,5 +1,3 @@
-console.log(process.env)
-
 module.exports = {
   bot: {
     key: process.env.TOKEN,
