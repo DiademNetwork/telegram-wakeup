@@ -58,15 +58,6 @@ const bot = module.exports = bb(options)
     } else {
       ctx.timezone = config.defaults.timezone
     }
-
-    if (!/^settings_/.test(ctx.command.name)) {
-      if (!ctx.session.locale) {
-        return ctx.go('settings_locale')
-      }
-      if (!ctx.session.timezone) {
-        return ctx.go('settings_timezone')
-      }
-    }
   })
 
 const detectTimezone = async (query) => {
