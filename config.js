@@ -7,7 +7,7 @@ module.exports = {
     },
     webHook: {
       url: process.env.HEROKU_URL + process.env.TOKEN,
-      https: true
+      https: false
     },
     baseApiUrl: 'https://api.telegram.org'
   },
